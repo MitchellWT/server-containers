@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+        nginx:
+                container_name: nginx
+                image: jonasal/nginx-certbot:latest-alpine
+                restart: unless-stopped
+                env_file:
+                        - ./env.env
+                ports:
+                        - 8080:80
+                        - 443:443
+                networks:
+                        - nginx
+                volumes:
+                        - nginx_secrets:/etc/letsencrypt
+                        - ./conf.d:/etc/nginx/user_conf.d
+                        - ./portfolio:/usr/share/nginx/html/portfolio
+                        - nextcloud_nextcloud:/var/www/html
+volumes:
+        nginx_secrets:
+        nextcloud_nextcloud:
+                external: true
+
+networks:
+        nginx:
+                external: true

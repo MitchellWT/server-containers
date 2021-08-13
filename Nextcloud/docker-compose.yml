@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+        nextcloud:
+                container_name: nextcloud
+                image: nextcloud:fpm-alpine
+                restart: unless-stopped
+                depends_on:
+                        - db
+                networks:
+                        - nginx
+                        - nextcloud
+                volumes:
+                        - nextcloud:/var/www/html
+                        - /media/SeagateStorage/Nextcloud:/media/SeagateStorage/Nextcloud
+                env_file:
+                        - ./env.env
+        db:
+                container_name: nextcloud-mariadb
+                image: mariadb:latest
+                command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-read-only-compressed=OFF
+                restart: unless-stopped
+                networks:
+                        - nextcloud
+                volumes:
+                        - nextcloud-db:/var/lib/mysql
+                env_file:
+                        - ./db.env
+networks:
+        nginx:
+                external: true
+        nextcloud:
+volumes:
+        nextcloud:
+        nextcloud-db:

@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+        jellyfin:
+                image: jellyfin/jellyfin:latest
+                container_name: jellyfin
+                network_mode: "host"
+                volumes:
+                        - ./config:/config
+                        - ./cache:/cache
+                        - /media/SeagateStorage/Jellyfin:/media
+                        # - ./media2:/media2:ro
+                restart: 'unless-stopped'

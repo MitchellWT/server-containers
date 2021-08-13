@@ -1,0 +1,38 @@
+version: '3.5'
+
+services:
+        photoprism:
+                image: photoprism/photoprism:latest
+                container_name: photoprism
+                depends_on:
+                        - db
+                restart: unless-stopped
+                networks:
+                         - nginx
+                         - photoprism
+                ports:
+                        - "2342:2342"
+                env_file:
+                        - ./env.env
+                volumes:
+                        - "/media/SeagateStorage/PhotoPrism:/photoprism/originals"
+                        - "./import:/photoprism/import"
+                        - "storage:/photoprism/storage"
+        db:
+                image: mariadb:latest
+                container_name: photoprism-mariadb
+                restart: unless-stopped
+                command: mysqld --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=50
+                networks:
+                        - photoprism
+                volumes:
+                        - "photoprism-db:/var/lib/mysql"
+                env_file:
+                        - ./db.env
+volumes:
+        storage:
+        photoprism-db:
+networks:
+        nginx:
+                external: true
+        photoprism:
