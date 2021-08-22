@@ -15,7 +15,6 @@ services:
                 volumes:
                         - nginx_secrets:/etc/letsencrypt
                         - ./conf.d:/etc/nginx/user_conf.d
-                        - ./portfolio:/usr/share/nginx/html/portfolio
                         - nextcloud_nextcloud:/var/www/html
 volumes:
         nginx_secrets:

@@ -8,6 +8,6 @@ services:
                 volumes:
                         - ./config:/config
                         - ./cache:/cache
-                        - /media/SeagateStorage/Jellyfin:/media
-                        # - ./media2:/media2:ro
+                        # - /path/to/media/dir:/media
+                        # - ./path/to/media/dir/two:/media2:ro
                 restart: 'unless-stopped'
