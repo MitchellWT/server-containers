@@ -14,4 +14,4 @@ Nginx configurations is not included in this repository, however the following l
 
 - PhotoPrism: https://docs.photoprism.org/getting-started/advanced/nginx-proxy-setup/
 - Jellyfin: https://jellyfin.org/docs/general/networking/nginx.html
-- https://docs.nextcloud.com/server/19/admin_manual/installation/nginx.html
+- Nextcloud: https://docs.nextcloud.com/server/19/admin_manual/installation/nginx.html
